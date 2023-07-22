@@ -26,7 +26,4 @@ classifiers = [
 dynamic = ["version", "description"]
 
 [project.urls]
-Home = "https://github.com/ematech/midi-const"
-
-[tool.flit.module]
-name = "midi"
+Home = "https://github.com/ematech/midi_const"
