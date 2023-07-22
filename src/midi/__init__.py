@@ -12,6 +12,9 @@ Derived from official MIDI specifications available at:
 - Association of Musical Electronics Industry (AMEI) [JP]: (https://www.amei.or.jp/)
 - MIDI Standard Committee (MSC) [JP]: http://amei.or.jp/midistandardcommittee
 """
+
+__version__ = "0.1.0"
+
 import datetime
 
 MIDI_VERSION = {
