@@ -1,8 +1,8 @@
 # This Python file uses the following encoding: utf-8
 #
-# SPDX-FileCopyrightText: 2021-2022 Raphaël Doursenaud <rdoursenaud@free.fr>
+# SPDX-FileCopyrightText: 2021 Raphaël Doursenaud <rdoursenaud@gmail.com>
 #
-# SPDX-License-Identifier: Unlicense
+# SPDX-License-Identifier: CC0-1.0 OR MIT OR Unlicense
 
 """
 MIDI related constants.
