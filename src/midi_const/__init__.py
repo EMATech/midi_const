@@ -374,10 +374,13 @@ SYSTEM_EXCLUSIVE_MESSAGES = {
 # All status bytes
 STATUS_BYTES = {}
 CHANNEL_VOICE_BYTES = {}
-for status_nibble, name in CHANNEL_VOICE_MESSAGES.items():
-    for channel in range(16):
-        status_byte = (status_nibble << 4) + channel
-        CHANNEL_VOICE_BYTES.update({status_byte: name})
+for _status_nibble, _name in CHANNEL_VOICE_MESSAGES.items():
+    for _channel in range(16):
+        _status_byte = (_status_nibble << 4) + _channel
+        CHANNEL_VOICE_BYTES.update({_status_byte: _name})
+
+del _status_nibble, _name, _channel, _status_byte
+
 STATUS_BYTES.update(CHANNEL_VOICE_BYTES)
 STATUS_BYTES.update(SYSTEM_COMMON_MESSAGES)
 STATUS_BYTES.update(SYSTEM_REAL_TIME_MESSAGES)
@@ -1139,20 +1142,22 @@ SYSTEM_EXCLUSIVE_ID = {
 
 # ID Groups:
 SYSTEM_EXCLUSIVE_ID_GROUPS = {}
-for syx_id in range(0x00, 0x7C + 1):
-    SYSTEM_EXCLUSIVE_ID_GROUPS.update({syx_id: "Manufacturer"})
+for _syx_id in range(0x00, 0x7C + 1):
+    SYSTEM_EXCLUSIVE_ID_GROUPS.update({_syx_id: "Manufacturer"})
 SYSTEM_EXCLUSIVE_ID_GROUPS.update({0x7D: "Reserved"})
-for syx_id in range(0x7E, 0x7F + 1):
-    SYSTEM_EXCLUSIVE_ID_GROUPS.update({syx_id: "Universal"})
+for _syx_id in range(0x7E, 0x7F + 1):
+    SYSTEM_EXCLUSIVE_ID_GROUPS.update({_syx_id: "Universal"})
 
 # ID Regions:
 SYSTEM_EXCLUSIVE_ID_REGIONS = {}
-for syx_id in range(0x00, 0x1F + 1):
-    SYSTEM_EXCLUSIVE_ID_REGIONS.update({syx_id: "American"})
-for syx_id in range(0x20, 0x3F + 1):
-    SYSTEM_EXCLUSIVE_ID_REGIONS.update({syx_id: "European"})
-for syx_id in range(0x40, 0x5F + 1):
-    SYSTEM_EXCLUSIVE_ID_REGIONS.update({syx_id: "Japanese"})
+for _syx_id in range(0x00, 0x1F + 1):
+    SYSTEM_EXCLUSIVE_ID_REGIONS.update({_syx_id: "American"})
+for _syx_id in range(0x20, 0x3F + 1):
+    SYSTEM_EXCLUSIVE_ID_REGIONS.update({_syx_id: "European"})
+for _syx_id in range(0x40, 0x5F + 1):
+    SYSTEM_EXCLUSIVE_ID_REGIONS.update({_syx_id: "Japanese"})
+
+del _syx_id
 
 # Page T-14
 ADDITIONAL_SPECIFICATIONS = {
@@ -1446,7 +1451,7 @@ GM1_DEFAULT_SETTINGS = {
 }
 
 GENERAL_MIDI_SOUND_SET_GROUPINGS = {}
-for group in (
+for _group in (
         ((0, 8), "Piano"),
         ((8, 16), "Chromatic Percussion"),
         ((16, 24), "Organ"),
@@ -1464,8 +1469,10 @@ for group in (
         ((112, 120), "Percussive"),
         ((120, 128), "Sound Effects"),
 ):
-    for prog_num in range(*group[0]):
-        GENERAL_MIDI_SOUND_SET_GROUPINGS[prog_num] = group[1]
+    for _prog_num in range(*_group[0]):
+        GENERAL_MIDI_SOUND_SET_GROUPINGS[_prog_num] = _group[1]
+
+del _group, _prog_num
 
 GENERAL_MIDI_SOUND_SET = (
     "Acoustic Grand Piano",
