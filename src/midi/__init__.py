@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: CC0-1.0 OR MIT OR Unlicense
 
 """
-MIDI related constants.
+Python MIDI constants.
 
 Derived from official MIDI specifications available at:
 - MIDI Association, ex MIDI Manufacturers Association (MMA) [US]:
