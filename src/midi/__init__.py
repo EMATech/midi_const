@@ -8,16 +8,17 @@
 MIDI related constants.
 
 Derived from official MIDI specifications available at:
-- MIDI Association, ex MIDI Manufacturers Association (MMA) [US]: https://midi.org
-- Association of Musical Electronics Industry (AMEI) [JP]: (https://www.amei.or.jp/)
-- MIDI Standard Committee (MSC) [JP]: http://amei.or.jp/midistandardcommittee
+- MIDI Association, ex MIDI Manufacturers Association (MMA) [US]:
+  https://midi.org
+- Association of Musical Electronics Industry (AMEI) [JP]:
+  (https://www.amei.or.jp/)
+- MIDI Standard Committee (MSC) [JP]:
+  http://amei.or.jp/midistandardcommittee
 """
 
 __version__ = "0.1.0"
 
-import datetime
-
-MIDI_VERSION = {
+VERSION = {
     1: "1.0",
     2: "2.0"  # TODO
 }
@@ -59,22 +60,26 @@ RX_MODE = {
        "and are assigned to voices polyphonically",
     4: "Voice messages are received in Voice channels N though N+M-1, "
        "and assigned monophonically to voices 1 though M, respectively. "
-       "The number of voices \"M\" is specified by the third byte of the Mono Mode Message.",
+       "The number of voices \"M\" is specified by "
+       "the third byte of the Mono Mode Message.",
 }
 TX_MODE = {
     1: "All voice messages are transmitted in Channel N.",
     2: "Voice messages for one voice are sent in Channel N.",
     3: "Voice messages for all voices are sent in Channel N.",
-    4: "Voice messages for voices 1 through M are transmitted in Voice Channels N through N+M-1, respectively. "
+    4: "Voice messages for voices 1 through M are "
+       "transmitted in Voice Channels N through N+M-1, respectively. "
        "(Single voice per channel).",
 }
-DEFAULT_BASIC_CHANNEL = 0  # Equivalent to 1 in MIDI parlance
-DEFAULT_MODE = 1
+DEFAULT_BASIC_CHANNEL = 0
+# Equivalent to 1 in MIDI parlance
+
+DEFAULT_MODE = 1  # Omni On/Poly
 
 # Page 8
 POWER_UP_DEFAULT = {
     "basic_channel": DEFAULT_BASIC_CHANNEL,
-    "mode": DEFAULT_MODE,  # Omni On/Poly
+    "mode": DEFAULT_MODE,
 }
 
 # Page 10
@@ -96,17 +101,31 @@ CHANNEL_VOICE_MESSAGES = {
 # Page T-3
 CONTROLLER_NUMBERS = {
     0: "Bank Select",
-    1: "Modulation Depth",  # Amended by RP-024. Was "Modulation" under RP-003. Was "Modulation wheel or lever".
+
+    1: "Modulation Depth",
+    # Amended by RP-024.
+    # Was "Modulation" under RP-003.
+    # Formerly "Modulation wheel or lever".
+
     2: "Breath controller",
     3: "Undefined",
     4: "Foot controller",
     5: "Portamento Time",
     6: "Data entry MSB",
-    7: "Channel Volume",  # Amended by RP-024. Was "Volume" under RP-003. Formerly "Main Volume".
+
+    7: "Channel Volume",
+    # Amended by RP-024.
+    # Was "Volume" under RP-003.
+    # Formerly "Main Volume".
+
     8: "Balance",
     9: "Undefined",
     10: "Pan",
-    11: "Expression",  # Amended by RP-003. Was "Expression Controller".
+
+    11: "Expression",
+    # Amended by RP-003.
+    # Formerly "Expression Controller".
+
     12: "Effect Control 1",
     13: "Effect Control 2",
     14: "Undefined",
@@ -127,7 +146,8 @@ CONTROLLER_NUMBERS = {
     29: "Undefined",
     30: "Undefined",
     31: "Undefined",
-    # LSB for values 0-31
+
+    # START: LSB for values 0-31:
     32: "Bank Select LSB",
     33: "Modulation wheel or lever LSB",
     34: "Breath controller LSB",
@@ -160,23 +180,56 @@ CONTROLLER_NUMBERS = {
     61: "Undefined LSB (29)",
     62: "Undefined LSB (30)",
     63: "Undefined LSB (31)",
-    64: "Hold 1 (Damper)",  # Amended by RP-024. Was "Sustain" under RP-003. Was "Damper pedal (sustain)".
+    # END: LSB for values 0-31.
+
+    64: "Hold 1 (Damper)",
+    # Amended by RP-024.
+    # Was "Sustain" under RP-003.
+    # Formerly "Damper pedal (sustain)".
+
     65: "Portamento ON/OFF",
     66: "Sostenuto",
-    67: "Soft",  # Amended by RP-024. Was "Soft pedal".
-    68: "Legato Footswitch",  # vv = 00-3F:Normal, 40-7F: Legatto
+
+    67: "Soft",
+    # Amended by RP-024.
+    # Was "Soft pedal".
+
+    68: "Legato Footswitch",
+    # vv = 00-3F:Normal, 40-7F: Legatto
+
     69: "Hold 2",
     # FIXME: Add default names structure?
-    70: "Sound Controller 1 (Sound Variation)",  # default name: Sound Variation
-    71: "Sound Controller 2 (Timbre/Harmonic Intensity)",  # default name: Timbre/Harmonic Intensity
-    72: "Sound Controller 3 (Release Time)",  # default name: Release Time
-    73: "Sound Controller 4 (Attack Time)",  # default name : Attack Time
-    74: "Sound Controller 5 (Brightness)",  # default name: Brightness
-    75: "Sound Controller 6 (Decay Time)",  # default name per RP-021: Decay Time
-    76: "Sound Controller 7 (Vibrato Rate)",  # default name per RP-021: Vibrato Rate
-    77: "Sound Controller 8 (Vibrato Depth)",  # default name per RP-021: Vibrato Depth
-    78: "Sound Controller 9 (Vibrato Delay)",  # default name per RP-021: Vibrato Delay
-    79: "Sound Controller 10 (undefined)",  # default name per RP-021: undefined
+
+    70: "Sound Controller 1 (Sound Variation)",
+    # Default name: Sound Variation
+
+    71: "Sound Controller 2 (Timbre/Harmonic Intensity)",
+    # Default name: Timbre/Harmonic Intensity
+
+    72: "Sound Controller 3 (Release Time)",
+    # Default name: Release Time
+
+    73: "Sound Controller 4 (Attack Time)",
+    # Default name : Attack Time
+
+    74: "Sound Controller 5 (Brightness)",
+    # Default name: Brightness
+
+    75: "Sound Controller 6 (Decay Time)",
+    # Default name per RP-021: Decay Time
+
+    76: "Sound Controller 7 (Vibrato Rate)",
+    # Default name per RP-021: Vibrato Rate
+
+    77: "Sound Controller 8 (Vibrato Depth)",
+    # Default name per RP-021: Vibrato Depth
+
+    78: "Sound Controller 9 (Vibrato Delay)",
+    # Default name per RP-021: Vibrato Delay
+
+    79: "Sound Controller 10 (undefined)",
+    # Default name per RP-021: undefined
+
     80: "General Purpose Controller 5",
     81: "General Purpose Controller 6",
     82: "General Purpose Controller 7",
@@ -185,17 +238,33 @@ CONTROLLER_NUMBERS = {
     85: "Undefined",
     86: "Undefined",
     87: "Undefined",
-    88: "High Resolution Velocity Prefix",  # Amended by CA-031. Was "Undefined"
+
+    88: "High Resolution Velocity Prefix",
+    # Amended by CA-031.
+    # Was "Undefined".
+
     89: "Undefined",
     90: "Undefined",
+
     91: "Reverb Send Level",
-    # Amended by RP-023. Was "Effects 1 Depth". Formerly and recommended default: External Effects Depth.
-    92: "Effects 2 Depth",  # formerly and recommended default: Tremolo Depth
+    # Amended by RP-023.
+    # Was "Effects 1 Depth".
+    # Formerly and recommended default: External Effects Depth.
+
+    92: "Effects 2 Depth",
+    # Formerly and recommended default: Tremolo Depth.
+
     93: "Chorus Send Level",
-    # Amended by RP-024. Was "Effects 3 Depth". Formerly and recommended default: Chorus Depth
+    # Amended by RP-024.
+    # Was "Effects 3 Depth".
+    # Formerly and recommended default: Chorus Depth.
+
     94: "Effects 4 Depth",
-    # formerly and recommended default: Celeste (Detune) Depth
-    95: "Effects 5 Depth",  # formerly and recommended default: Phaser Depth
+    # Formerly and recommended default: Celeste (Detune) Depth.
+
+    95: "Effects 5 Depth",
+    # Formerly and recommended default: Phaser Depth
+
     96: "Data increment",
     97: "Data decrement",
     98: "Non-Registered Parameter Number LSB",
@@ -220,7 +289,8 @@ CONTROLLER_NUMBERS = {
     117: "Undefined",
     118: "Undefined",
     119: "Undefined",
-    # Reserved for Channel Mode Messages
+
+    # START: Reserved for Channel Mode Messages:
     120: "Reserved for Channel Mode Messages",
     121: "Reserved for Channel Mode Messages",
     122: "Reserved for Channel Mode Messages",
@@ -229,17 +299,29 @@ CONTROLLER_NUMBERS = {
     125: "Reserved for Channel Mode Messages",
     126: "Reserved for Channel Mode Messages",
     127: "Reserved for Channel Mode Messages",
+    # END: Reserved for Channel Mode Messages.
 }
 
 # Page T-4
 REGISTERED_PARAMETER_NUMBERS = {
-    # LSB only since MSB is always 0x00. # FIXME: RP-024 defines an LSB of 0x7F!
+    # LSB only since MSB is always 0x00.
+    # FIXME: RP-024 defines an LSB of 0x7F!
+
     0x00: "Pitch Bend Sensitivity",
-    0x01: "Channel Fine Tuning",  # Amended by RP-022, was "Fine Tuning" under RP-003.
-    0x02: "Channel Coarse Tuning",  # Amended by RP-022 was "Coarse Tuning" under RP-003.
+
+    0x01: "Channel Fine Tuning",
+    # Amended by RP-022.
+    # Was "Fine Tuning" under RP-003.
+
+    0x02: "Channel Coarse Tuning",
+    # Amended by RP-022.
+    # Was "Coarse Tuning" under RP-003.
+
     0x03: "Tuning Program Select",
     0x04: "Tuning Bank Select",
-    0x05: "Modulation Depth Range",  # Introduced by CA-026.
+
+    0x05: "Modulation Depth Range",
+    # Introduced by CA-026.
 }
 
 # Page T-5
@@ -251,8 +333,11 @@ CHANNEL_MODE_MESSAGES = {
     123: "All Notes Off",  # 0
     124: "Omni Mode Off (All Notes Off)",  # 0
     125: "Omni Mode On (All Notes Off)",  # 0
+
     126: "Mono Mode On (Poly Mode Off) (All Notes Off)",
-    # M, where M is the number of channels. 0, the number of channels equals the number of voices in the receiver.
+    # M, where M is the number of channels.
+    # 0, the number of channels equals the number of voices in the receiver.
+
     127: "Poly Mode On (Mono Mode Off) (All Notes Off)",
 }
 
@@ -304,13 +389,16 @@ DEFINED_UNIVERSAL_SYSTEM_EXCLUSIVE_MESSAGES_NON_REAL_TIME_SUB_ID_1 = {  # 0x7E
     0x01: "Sample Dump Header",
     0x02: "Sample Data Packet",
     0x03: "Sample Dump Request",
-    0x04: "MIDI Time Code",  # SUB-ID #2
-    0x05: "Sample Dump Extensions",  # SUB-ID #2
-    0x06: "General Information",  # SUB-ID #2
-    0x07: "File Dump",  # SUB-ID #2
-    0x08: "MIDI Tuning Standard",  # SUB-ID #2
-    0x09: "General MIDI Message",  # SUB-ID #2
-    0x0B: "File Reference Message Command",  # Introduced by CA-018.
+    0x04: "MIDI Time Code",  # Has a SUB-ID #2
+    0x05: "Sample Dump Extensions",  # Has a  SUB-ID #2
+    0x06: "General Information",  # Has a  SUB-ID #2
+    0x07: "File Dump",  # Has a  SUB-ID #2
+    0x08: "MIDI Tuning Standard",  # Has a SUB-ID #2
+    0x09: "General MIDI Message",  # Has a SUB-ID #2
+
+    0x0B: "File Reference Message Command",
+    # Introduced by CA-018.
+
     0x7B: "End of File",
     0x7C: "Wait",
     0x7D: "Cancel",
@@ -337,12 +425,23 @@ NON_REAL_TIME_MIDI_TIME_CODE_SUB_ID_2 = {  # 0x04
 NON_REAL_TIME_SAMPLE_DUMP_EXTENSIONS_SUB_ID_2 = {  # 0x05
     0x01: "Multiple Loop Points",
     0x02: "Loop Points Request",
-    0x03: "Sample Name Transmission",  # Introduced by CA-019.
-    0x04: "Sample Name Request",  # Introduced by CA-019.
-    0x05: "Extended Dump Header",  # Introduced by CA-019.
-    0x06: "Sample Extended Loop Point Transmission",  # Introduced by CA-019.
+
+    0x03: "Sample Name Transmission",
+    # Introduced by CA-019.
+
+    0x04: "Sample Name Request",
+    # Introduced by CA-019.
+
+    0x05: "Extended Dump Header",
+    # Introduced by CA-019.
+
+    0x06: "Sample Extended Loop Point Transmission",
+    # Introduced by CA-019.
+
     0x07: "Sample Extended Loop Point Request",
-    # Introduced by CA-019. FIXME: report typo in CA-019, "Transmission" instead of "Request" in the sample.
+    # Introduced by CA-019.
+    # FIXME: report typo in CA-019:
+    #   "Transmission" instead of "Request" in the sample.
 }
 NON_REAL_TIME_GENERAL_INFORMATION_SUB_ID_2 = {  # 0x06
     0x01: "Identity Request",
@@ -356,18 +455,31 @@ NON_REAL_TIME_FILE_DUMP_SUB_ID_2 = {  # 0x07
 NON_REAL_TIME_MIDI_TUNING_STANDARD_SUB_ID_2 = {  # 0x08
     0x00: "Bulk Dump Request",
     0x01: "Bulk Dump Reply",
-    0x03: "Bulk Tuning Dump Request (Bank)",  # Introduced by CA-020.
-    0x04: "Key-Based Tuning Dump",  # Introduced by CA-020.
-    0x05: "Scale/Octave Tuning Dump, 1 byte format",  # Introduced by CA-020.
-    0x06: "Scale/Octave Tuning Dump, 2 byte format",  # Introduced by CA-020.
-    0x07: "Single Note Tuning Change (Bank)",  # Introduced by CA-020.
-    0x08: "Scale/Octave Tuning 1-Byte Form",  # Introduced by CA-021.
-    0x09: "Scale/Octave Tuning 2-Byte Form",  # Introduced by CA-021.
+
+    # START: Introduced by CA-020:
+    0x03: "Bulk Tuning Dump Request (Bank)",
+    0x04: "Key-Based Tuning Dump",
+    0x05: "Scale/Octave Tuning Dump, 1 byte format",
+    0x06: "Scale/Octave Tuning Dump, 2 byte format",
+    0x07: "Single Note Tuning Change (Bank)",
+    # END: Introduced by CA-020.
+
+    # START: Introduced by CA-021:
+    0x08: "Scale/Octave Tuning 1-Byte Form",
+    0x09: "Scale/Octave Tuning 2-Byte Form",
+    # END: Introduced by CA-021.
 }
 NON_REAL_TIME_GENERAL_MIDI_SUB_ID_2 = {  # 0x09
-    0x01: "General MIDI 1 On",  # Amended by CA-027. Was "General MIDI System On".
-    0x02: "General MIDI Off",  # Amended by RP-003. Was "General MIDI System Off"
-    0x03: "General MIDI 2 On",  # Introduced by CA-027.
+    0x01: "General MIDI 1 On",
+    # Amended by CA-027.
+    # Was "General MIDI System On".
+
+    0x02: "General MIDI Off",
+    # Amended by RP-003.
+    # Was "General MIDI System Off"
+
+    0x03: "General MIDI 2 On",
+    # Introduced by CA-027.
 }
 NON_REAL_TIME_FILE_REFERENCE_MESSAGE_COMMAND_SUB_ID_2 = {  # 0x0B
     # Introduced by CA-018.
@@ -387,7 +499,9 @@ NON_REAL_TIME_SUB_ID_2_FROM_1 = {
     0x07: NON_REAL_TIME_FILE_DUMP_SUB_ID_2,
     0X08: NON_REAL_TIME_MIDI_TUNING_STANDARD_SUB_ID_2,
     0X09: NON_REAL_TIME_GENERAL_MIDI_SUB_ID_2,
-    0x0B: NON_REAL_TIME_FILE_REFERENCE_MESSAGE_COMMAND_SUB_ID_2,  # Introduced by CA-018.
+
+    0x0B: NON_REAL_TIME_FILE_REFERENCE_MESSAGE_COMMAND_SUB_ID_2,
+    # Introduced by CA-018.
 }
 
 # Page T-10
@@ -401,17 +515,29 @@ DEFINED_UNIVERSAL_SYSTEM_EXCLUSIVE_MESSAGES_REAL_TIME_SUB_ID_1 = {  # 0x7F
     0x06: "MIDI Machine Control Commands",  # Has a SUB-ID #2.
     0x07: "MIDI Machine Control Responses",  # Has a SUB-ID #2.
     0x08: "MIDI Tuning Standard",  # Has a SUB-ID #2.
-    0x09: "Controller Destination Setting",  # Introduced by CA-022. Has SUB-ID#2.
-    0x0A: "Key-Based Instrument Control",  # Introduced by CA-023. Has SUB-ID #2.
-    0x0B: "Scalable Polyphony MIDI",  # Introduced by CA-029. Has a SUB-ID#2.
-    0x0C: "Mobile Phone Control Message",  # Introduced by CA-030. Has a SUB-ID#2.
+
+    0x09: "Controller Destination Setting",
+    # Introduced by CA-022.
+    # Has SUB-ID#2.
+
+    0x0A: "Key-Based Instrument Control",
+    # Introduced by CA-023.
+    # Has SUB-ID #2.
+
+    0x0B: "Scalable Polyphony MIDI",
+    # Introduced by CA-029.
+    # Has a SUB-ID#2.
+
+    0x0C: "Mobile Phone Control Message",
+    # Introduced by CA-030.
+    # Has a SUB-ID#2.
 }
 REAL_TIME_MIDI_TIME_CODE_SUB_ID_2 = {  # 0x01
     0x01: "Full Message",
     0x02: "User Bits",
 }
 REAL_TIME_SHOW_CONTROL_SUB_ID_2 = {  # 0x02
-    # Extracted from MSC specification
+    # Extracted from MSC specification:
     0x00: "(Reserved)",
 
     0x01: "Lighting (General Category)",
@@ -486,9 +612,13 @@ REAL_TIME_NOTATION_INFORMATION_SUB_ID_2 = {  # 0x03
 REAL_TIME_DEVICE_CONTROL_SUB_ID_2 = {  # 0x04
     0x01: "Master Volume",
     0x02: "Master Balance",
-    0x03: "Master Fine Tuning",  # Introduced by CA-025.
-    0x04: "Master Coarse Tuning",  # Introduced by CA-025.
-    0x05: "Global Parameter Control",  # Introduced by CA-024.
+
+    # Introduced by CA-025:
+    0x03: "Master Fine Tuning",
+    0x04: "Master Coarse Tuning",
+
+    0x05: "Global Parameter Control",
+    # Introduced by CA-024.
 }
 REAL_TIME_MTC_CUEING_SUB_ID_2 = {  # 0x05
     0x00: "Special",
@@ -508,7 +638,7 @@ REAL_TIME_MTC_CUEING_SUB_ID_2 = {  # 0x05
     0x0E: "Event Name in additional info.",
 }
 REAL_TIME_MIDI_MACHINE_CONTROL_COMMANDS_SUB_ID_2 = {  # 0x06
-    # Extracted from the MMC specification
+    # Extracted from the MMC specification:
     0x00: "(Reserved)",
     0x01: "STOP",
     0x02: "PLAY",
@@ -552,7 +682,7 @@ REAL_TIME_MIDI_MACHINE_CONTROL_COMMANDS_SUB_ID_2 = {  # 0x06
     0x7F: "RESUME",
 }
 REAL_TIME_MIDI_MACHINE_CONTROL_RESPONSES_SUB_ID_2 = {  # 0x07
-    # Extracted from the MMC specification
+    # Extracted from the MMC specification:
     0x00: "(Reserved)",
     0x01: "SELECTED TIME CODE",
     0x02: "SELECTED MASTER CODE",
@@ -633,9 +763,15 @@ REAL_TIME_MIDI_MACHINE_CONTROL_RESPONSES_SUB_ID_2 = {  # 0x07
 }
 REAL_TIME_MIDI_TUNING_STANDARD_SUB_ID_2 = {  # 0x08
     0x02: "Note Change",
-    0x07: "Single Note Tuning Change (Bank)",  # Introduced by CA-020.
-    0x08: "Scale/Octave Tuning 1-Byte Form",  # Introduced in CA-021.
-    0x09: "Scale/Octave Tuning 2-Byte Form",  # Introduced in CA-021.
+
+    0x07: "Single Note Tuning Change (Bank)",
+    # Introduced by CA-020.
+
+    0x08: "Scale/Octave Tuning 1-Byte Form",
+    # Introduced in CA-021.
+
+    0x09: "Scale/Octave Tuning 2-Byte Form",
+    # Introduced in CA-021.
 }
 REAL_TIME_CONTROLLER_DESTINATION_SETTING_SUB_ID_2 = {  # 0x09
     # Introduced by CA-022.
@@ -664,10 +800,18 @@ REAL_TIME_SUB_ID_2_FROM_1 = {
     0x06: REAL_TIME_MIDI_MACHINE_CONTROL_COMMANDS_SUB_ID_2,
     0x07: REAL_TIME_MIDI_MACHINE_CONTROL_RESPONSES_SUB_ID_2,
     0x08: REAL_TIME_MIDI_TUNING_STANDARD_SUB_ID_2,
-    0x09: REAL_TIME_CONTROLLER_DESTINATION_SETTING_SUB_ID_2,  # Introduced by CA-022.
-    0x0A: REAL_TIME_KEY_BASED_INSTRUMENT_CONTROL_SUB_ID_2,  # Introduced by CA-024.
-    0x0B: REAL_TIME_SCALABLE_POLYPHONY_MIDI_SUB_ID_2,  # Introduced by CA-029.
-    0x0C: REAL_TIME_MOBILE_PHONE_CONTROL_MESSAGE_SUB_ID_2,  # Introduced by CA-030.
+
+    0x09: REAL_TIME_CONTROLLER_DESTINATION_SETTING_SUB_ID_2,
+    # Introduced by CA-022.
+
+    0x0A: REAL_TIME_KEY_BASED_INSTRUMENT_CONTROL_SUB_ID_2,
+    # Introduced by CA-024.
+
+    0x0B: REAL_TIME_SCALABLE_POLYPHONY_MIDI_SUB_ID_2,
+    # Introduced by CA-029.
+
+    0x0C: REAL_TIME_MOBILE_PHONE_CONTROL_MESSAGE_SUB_ID_2,
+    # Introduced by CA-030.
 }
 
 # Page T-11
@@ -744,7 +888,9 @@ SYSTEM_EXCLUSIVE_ID = {
             0x44: "Intone",
 
             0x47: "GT Electronics/Groove Tubes",
-            # TODO: Report to MMA that 0x4F is duplicated here as "InterMIDI, Inc." instead of just "InterMIDI"?
+            0x48: "InterMIDI, Inc.",
+            # TODO: Report to MMA that 0x4F is duplicated here as
+            #   "InterMIDI, Inc." instead of just "InterMIDI"?
             0x49: "Timeline Vista",
             0x4A: "Mesa Boogie",
 
@@ -878,9 +1024,9 @@ SYSTEM_EXCLUSIVE_ID = {
         }
     },
 
-    # 1-byte IDs
+    # 1-byte IDs:
 
-    # American Group (01-1F)
+    # American Group (01-1F):
     0x01: "Sequencial",
     0x02: "IDP",
     0x03: "Voyetra/Octave-Plateau",
@@ -913,7 +1059,7 @@ SYSTEM_EXCLUSIVE_ID = {
 
     0x1F: "Clarity",
 
-    # European Group (20-3F)
+    # European Group (20-3F):
     0x20: "Passac",
     0x21: "SIEL",
     0x22: "Synthaxe",
@@ -944,16 +1090,18 @@ SYSTEM_EXCLUSIVE_ID = {
     0x3E: "Waldorf Electronics",
     0x3F: "Quasimidi",
 
-    # Japanese Group (40-5F)
+    # Japanese Group (40-5F):
     0x40: "Kawai",
     0x41: "Roland",
     0x42: "Korg",
     0x43: "Yamaha",
     0x44: "Casio",
 
-    # Shigenori Kamiya.
-    # Worked with Roland and made MIDI sequence software and tone editors such as Odyssey-K for the MSX Computer.
     0x46: "Kamiya Studio",
+    # Shigenori Kamiya.
+    # Worked with Roland and made MIDI sequence software and
+    # tone editors such as Odyssey-K for the MSX Computer.
+
     0x47: "Akai",
     0x48: "Japan Victor",  # JVC
     0x49: "Mesosha",
@@ -969,7 +1117,8 @@ SYSTEM_EXCLUSIVE_ID = {
     0x53: "Midori Electronics",
     0x54: "Matsushita Communication Industrial",  # Panasonic
     0x55: "Suzuki Musical Inst. Mfg.",
-    # Update from AMEI database (56-5F)
+
+    # Update from AMEI database (56-5F):
     0x56: "Fuji Onkyo Co., Ltd.",
     0x57: "Onkyo Research Institute Co., Ltd.",
 
@@ -979,16 +1128,16 @@ SYSTEM_EXCLUSIVE_ID = {
 
     0x5F: "SD Card Association",
 
-    # Others Group (60-7C)
+    # Others Group (60-7C):
 
     # Page T-8
-    # Special Group (7D-7F)
+    # Special Group (7D-7F):
     0x7D: "Non Commercial",
     0x7E: "Non-Real Time",
     0x7F: "Realtime"
 }
 
-# ID Groups
+# ID Groups:
 SYSTEM_EXCLUSIVE_ID_GROUPS = {}
 for syx_id in range(0x00, 0x7C + 1):
     SYSTEM_EXCLUSIVE_ID_GROUPS.update({syx_id: "Manufacturer"})
@@ -996,7 +1145,7 @@ SYSTEM_EXCLUSIVE_ID_GROUPS.update({0x7D: "Reserved"})
 for syx_id in range(0x7E, 0x7F + 1):
     SYSTEM_EXCLUSIVE_ID_GROUPS.update({syx_id: "Universal"})
 
-# ID Regions
+# ID Regions:
 SYSTEM_EXCLUSIVE_ID_REGIONS = {}
 for syx_id in range(0x00, 0x1F + 1):
     SYSTEM_EXCLUSIVE_ID_REGIONS.update({syx_id: "American"})
@@ -1043,7 +1192,8 @@ ADDITIONAL_SPECIFICATIONS = {
 # CA-017
 ###
 
-# FIXME: original specifications lost to time. Probably integrated into the MIDI 1.0 specification.
+# FIXME: original specifications lost to time.
+#        Probably integrated into the MIDI 1.0 specification.
 
 ###
 # STANDARD MIDI FILES (SMF)
@@ -1091,7 +1241,8 @@ SMF_TRACK_EVENT_TYPES = {
 # Page 8-11 (PDF: 10-13)
 SMF_TRACK_EVENT_META_EVENT_TYPES = {
     0x00: "Sequence Number",
-    # 0x01 to 0XF reserved for various types of text events.
+
+    # 0x01 to 0XF reserved for various types of text events:
     0x01: "Text Event",
     0x02: "Copyright Notice",
     0x03: "Sequence/Track Name",
@@ -1099,8 +1250,12 @@ SMF_TRACK_EVENT_META_EVENT_TYPES = {
     0x05: "Lyric",  # Renamed to "Display/Lyric" by RP-026 (See below).
     0x06: "Marker",
     0x07: "Cue Point",
-    # 0x08: "Program Name",  # Added by RP-019 (See below).
-    # 0x09: "Device Name",  # Added by RP-019 (See below).
+
+    # 0x08: "Program Name",
+    # Added by RP-019 (See below).
+
+    # 0x09: "Device Name",
+    # Added by RP-019 (See below).
 
     0x20: "MIDI Channel Prefix",
 
@@ -1116,10 +1271,10 @@ SMF_TRACK_EVENT_META_EVENT_TYPES = {
 
     0x7F: "Sequencer-Specific Meta-Event",
 }
-_VLQ = -1  # Variable-Length Quantity
+_VLQ = -1  # Variable-Length Quantity.
 SMF_TRACK_EVENT_META_EVENT_PARAMETERS = {
-    0x00: {  # Sequence number
-        'length': 2,  # bytes
+    0x00: {  # Sequence number.
+        'length': 2,  # bytes.
         'bytes': {
             0: "Number MSB",
             1: "Number LSB",
@@ -1131,52 +1286,54 @@ SMF_TRACK_EVENT_META_EVENT_PARAMETERS = {
             _VLQ: "Any amount of text describing anything",
         },
     },
-    0x02: {  # Copyright Notice
+    0x02: {  # Copyright Notice.
         'length': _VLQ,
         'bytes': {
             _VLQ: "Copyright notice",
         },
     },
-    0x03: {  # Sequence/Track Name
+    0x03: {  # Sequence/Track Name.
         'length': _VLQ,
         'bytes': {
             _VLQ: "Name of the sequence or track",
         },
     },
-    0x04: {  # Instrument Name
+    0x04: {  # Instrument Name.
         'length': _VLQ,
         'bytes': {
-            _VLQ: "Description of the type of instrumentation to be used in that track",
+            _VLQ: "Description of the type of "
+                  "instrumentation to be used in that track",
         },
     },
-    0x05: {  # Lyric
+    0x05: {  # Lyric.
         'length': _VLQ,
         'bytes': {
             _VLQ: "Lyric to be sung",
         },
     },
-    0x06: {  # Marker
+    0x06: {  # Marker.
         'length': _VLQ,
         'bytes': {
             _VLQ: "Name of that point in the sequence",
         },
     },
-    0x07: {  # Cue Point
+    0x07: {  # Cue Point.
         'length': _VLQ,
         'bytes': {
-            _VLQ: "Description of something happening at that point in the musical score",
+            _VLQ: "Description of something happening at "
+                  "that point in the musical score",
         },
     },
-    0x20: {  # MIDI Channel Prefix
+    0x20: {  # MIDI Channel Prefix.
         'length': 1,
         'bytes': {
             0: "MIDI Channel",
         }
     },
-    0x2F: {  # End of Track
+    0x2F: {  # End of Track.
         'length': 0,
     },
-    0x51: {  # Set Tempo
+    0x51: {  # Set Tempo.
         'length': 3,
         'bytes': {
             0: 'Tempo (MSB)',
@@ -1184,17 +1341,19 @@ SMF_TRACK_EVENT_META_EVENT_PARAMETERS = {
             2: 'Tempo (LSB)',
         },
     },
-    0x54: {  # SMPTE Offset
+    0x54: {  # SMPTE Offset.
         'length': 5,
         'bytes': {
-            0: "Hours (Including Time Code Type)",  # See section: MIDI Time Code
+            0: "Hours (Including Time Code Type)",
+            # See section: MIDI Time Code.
+
             1: "Minutes",
             2: "Seconds",
             3: "Frames",
             4: "Fractional frames (100ths of a frame)"
         },
     },
-    0x58: {  # Time Signature
+    0x58: {  # Time Signature.
         'length': 4,
         'bytes': {
             0: "Numerator",
@@ -1203,22 +1362,22 @@ SMF_TRACK_EVENT_META_EVENT_PARAMETERS = {
             3: "Number of 32nd-notes in MIDI quarter-note (24 MIDI Clocks)",
         },
     },
-    0x59: {  # Key Signature
+    0x59: {  # Key Signature.
         'length': 2,
         'bytes': {
             0: "Flats",
             1: "Key",
         }
     },
-    0x7F: {  # Sequencer-Specific Meta-Event
+    0x7F: {  # Sequencer-Specific Meta-Event.
         'length': _VLQ,
         'bytes': {
             _VLQ: "Sequencer-Specific Meta-Event data",
-            # See SYSTEM_EXCLUSIVE_MANUFACTURER_ID
+            # See SYSTEM_EXCLUSIVE_MANUFACTURER_ID.
             0: "Manufacturer ID (Single of first byte)",
             1: "Manufacturer ID (Second byte)",  # Only if byte 0 is 0x00!
             2: "Manufacturer ID (Third byte)",  # Only if byte 0 is 0x00!
-            # Followed by Sequencer-Specific data
+            # Followed by Sequencer-Specific data.
         }
     },
 }
@@ -1227,22 +1386,11 @@ SMF_TRACK_EVENT_META_EVENT_PARAMETERS = {
 _S_PER_MIN = 60
 _S2MS = _MS2US = 1_000
 _SMF_DEFAULT_TEMPO_BPM = 120
-SMF_DEFAULT_TEMPO = _S_PER_MIN * _S2MS * _MS2US / _SMF_DEFAULT_TEMPO_BPM  # = 500_000 µs/qn
 
+SMF_DEFAULT_TEMPO = _S_PER_MIN * _S2MS * _MS2US / _SMF_DEFAULT_TEMPO_BPM
+# = 500_000 µs/qn
 
-def compute_delta_time(delta_time: int, division: int, tempo: int = SMF_DEFAULT_TEMPO) -> datetime.timedelta:
-    """Computes natural delta-time in milliseconds from MIDI delta-time expressed in ticks.
-    
-    :param delta_time: SMF Track Event delta-time (in ticks)
-    :param division: SMF Header Chunk division (in delta ticks per quarter-note)
-    :param tempo: SMF Track non-MIDI data Meta Event Tempo (in microseconds per quarter-note).
-    Assumed to be 120 if not provided.
-    :return: A time delta object.
-    """
-    return datetime.timedelta(milliseconds=delta_time * (tempo / division) / _MS2US)
-
-
-# Inferred
+# Inferred:
 SMF_DEFAULT_ENCODING = 'ASCII'
 
 ###
@@ -1253,6 +1401,7 @@ SMF_DEFAULT_ENCODING = 'ASCII'
 ###
 
 # TODO!
+#   Parts already integrated above in REAL_TIME_SHOW_CONTROL_SUB_ID_2.
 
 ###
 # GENERAL MIDI SYSTEM LEVEL 1 (GM/GM1)
@@ -1580,6 +1729,9 @@ GENERAL_MIDI_PERCUSSION_MAP = {  # Channel 10
 ###
 
 # TODO!
+#   Parts already integrated above in:
+#       - REAL_TIME_MIDI_MACHINE_CONTROL_COMMANDS_SUB_ID_2
+#       - REAL_TIME_MIDI_MACHINE_CONTROL_RESPONSES_SUB_ID_2
 
 ###
 # RP-014
@@ -1612,9 +1764,11 @@ GENERAL_MIDI_PERCUSSION_MAP = {  # Channel 10
 ###
 
 SMF_TRACK_EVENT_META_EVENT_LYRIC_RECOMMENDED_FIRST_EVENT_POSITION = 0
-# FIXME: [Upstream MMA specification] Title says "Line Return" while text refers to "Carriage Return".
+# FIXME: The MMA specification title says "Line Return" while
+#   the text refers to "Carriage Return".
 SMF_TRACK_EVENT_META_EVENT_LYRIC_MAXIMUM_RECOMMENDED_LENGTH_BEFORE_RETURN = 40
-SMF_TRACK_EVENT_META_EVENT_LYRIC_RESERVED_CHARACTERS = {  # Further defined in RP-027 (See below).
+SMF_TRACK_EVENT_META_EVENT_LYRIC_RESERVED_CHARACTERS = {
+    # Further defined in RP-027 (See below).
     '\\', '[', ']', '{', '}',
 }
 
@@ -1644,8 +1798,8 @@ SMF_TRACK_EVENT_META_EVENT_TYPES[0x08] = "Program Name"
 SMF_TRACK_EVENT_META_EVENT_PARAMETERS[0x08] = {
     'length': _VLQ,
     'bytes': {
-        _VLQ: "Name of the program called up by the immediately following sequence of bank select "
-              "and program change messages",
+        _VLQ: "Name of the program called up by the immediately following "
+              "sequence of bank select and program change messages",
     },
 }
 
@@ -1777,7 +1931,9 @@ SMF_TRACK_EVENT_META_LYRIC_DISPLAY_RESERVED_CHARACTERS = {
     0x5C: "Prefix for Command Codes",  # "\"
     0x5D: "End of Ruby Tag",  # "]"
 
-    0x7B: "With @ = Beginning of Language Tag, with # = Beginning of Song Information Tag",  # "{"
+    0x7B: "With @ = Beginning of Language Tag, "
+          "with # = Beginning of Song Information Tag",
+    # "{"
     0x7D: "End of Language @ or # Song Information Tag",
 }
 SMF_TRACK_EVENT_META_LYRIC_DISPLAY_COMMANDS = {
@@ -1797,7 +1953,8 @@ SMF_TRACK_EVENT_META_LYRIC_DISPLAY_CODE_SETS = {
     'JP',  # MS-Kanji (Shift-JIS)
     'Jp',  # Same as "JP"
     'jp'  # Same as "JP"
-    # Warning: The Byte Order Mark (BOM) sets the code set to UNICODE despite not being declared here!
+    # Warning: The Byte Order Mark (BOM) implicitly sets the code-set to
+    # UNICODE despite not being explicitly declared here!
 }
 
 ###
@@ -1830,7 +1987,8 @@ SMF_TRACK_EVENT_META_LYRIC_DISPLAY_CODE_SETS = {
 ###
 # XMF SPECIFICATION
 #
-# Reference: RP-030, RP-031, RP-032, RP-039, RP-040, RP-042, RP-043, RP-045, RP-047
+# Reference:
+#   RP-030, RP-031, RP-032, RP-039, RP-040, RP-042, RP-043, RP-045, RP-047
 ###
 
 # TODO!
@@ -1846,7 +2004,8 @@ SMF_TRACK_EVENT_META_EVENT_TYPES[0x60] = "XMF Patch Type Prefix"
 SMF_TRACK_EVENT_META_EVENT_PARAMETERS[0x60] = {
     'length': 1,
     'bytes': {
-        0: "How to interpret subsequent Program Change and Bank Select Messages"
+        0: "How to interpret subsequent Program Change and "
+           "Bank Select Messages"
     },
     'values': {
         0x01: "General MIDI 1",
@@ -2007,15 +2166,15 @@ SMF_TRACK_EVENT_META_EVENT_PARAMETERS[0x60] = {
 # TODO: Hardware!
 
 
-############
-# Template #
-############
+####################
+# Section Template #
+####################
 
 ###
-# TITLE
+# [TITLE]
 #
-# Reference: Specification ID
-# See section: Specification section modified
+# Reference: [Specification ID]
+# See section: [Specification section modified]
 ###
 
 # TODO!
@@ -2024,7 +2183,6 @@ SMF_TRACK_EVENT_META_EVENT_PARAMETERS[0x60] = {
 #########
 # Tests #
 #########
-
 if __name__ == '__main__':
     import logging
     from pprint import pformat
@@ -2033,6 +2191,12 @@ if __name__ == '__main__':
 
     assert SMF_DEFAULT_TEMPO == 500_000  # us/qn <=> 120 BPM
 
-    # Check monkey patching works
-    logging.debug("SMF_TRACK_EVENT_META_EVENT_TYPES=%s", pformat(SMF_TRACK_EVENT_META_EVENT_TYPES))
-    logging.debug("SMF_TRACK_EVENT_META_EVENT_PARAMETERS=%s", pformat(SMF_TRACK_EVENT_META_EVENT_PARAMETERS))
+    # Check monkey patching works:
+    logging.debug(
+        "SMF_TRACK_EVENT_META_EVENT_TYPES=%s",
+        pformat(SMF_TRACK_EVENT_META_EVENT_TYPES)
+    )
+    logging.debug(
+        "SMF_TRACK_EVENT_META_EVENT_PARAMETERS=%s",
+        pformat(SMF_TRACK_EVENT_META_EVENT_PARAMETERS)
+    )
