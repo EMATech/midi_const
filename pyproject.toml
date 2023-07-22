@@ -11,9 +11,17 @@ name = "midi_const"
 authors = [{name = "Raphaël Doursenaud", email = "rdoursenaud@gmail.com"}]
 license = {file = "LICENSE"}
 classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
     "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     "License :: OSI Approved :: MIT License",
     "License :: OSI Approved :: The Unlicense (Unlicense)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Topic :: Multimedia :: Sound/Audio :: MIDI",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development",
 ]
 dynamic = ["version", "description"]
 
