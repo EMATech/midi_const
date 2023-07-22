@@ -3,7 +3,6 @@
 # SPDX-FileCopyrightText: 2021 Raphaël Doursenaud <rdoursenaud@gmail.com>
 #
 # SPDX-License-Identifier: CC0-1.0 OR MIT OR Unlicense
-
 """
 Python MIDI constants.
 
@@ -16,7 +15,7 @@ Derived from official MIDI specifications available at:
   http://amei.or.jp/midistandardcommittee
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.0.post1"
 
 VERSION = {
     1: "1.0",

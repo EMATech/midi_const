@@ -9,6 +9,7 @@ build-backend = "flit_core.buildapi"
 [project]
 name = "midi_const"
 authors = [{name = "Raphaël Doursenaud", email = "rdoursenaud@gmail.com"}]
+readme = "README.md"
 license = {file = "LICENSE"}
 classifiers = [
     "Development Status :: 3 - Alpha",
