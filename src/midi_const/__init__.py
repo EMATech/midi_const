@@ -17,7 +17,7 @@ Derived from official MIDI specifications available at:
 
 __version__ = "0.1.0.post1"
 
-VERSION = {
+VERSIONS = {
     1: "1.0",
     2: "2.0"  # TODO
 }
@@ -539,72 +539,7 @@ REAL_TIME_MIDI_TIME_CODE_SUB_ID_2 = {  # 0x01
     0x02: "User Bits",
 }
 REAL_TIME_SHOW_CONTROL_SUB_ID_2 = {  # 0x02
-    # Extracted from MSC specification:
-    0x00: "(Reserved)",
-
-    0x01: "Lighting (General Category)",
-    0x02: "Moving Lights",
-    0x03: "Color Changers",
-    0x04: "Strobes",
-    0x05: "Lasers",
-    0x06: "Chasers",
-
-    0x10: "Sound (General Category)",
-    0x11: "Music",
-    0x12: "CD Players",
-    0x13: "EPROM Playback",
-    0x14: "Audio Tape Machines",
-    0x15: "Intecoms",
-    0x16: "Amplifiers",
-    0x17: "Audio Effects Devices",
-    0x18: "Equalizers",
-
-    0x20: "Machinery (General Category)",
-    0x21: "Rigging",
-    0x22: "Flys",
-    0x23: "Lifts",
-    0x24: "Turntables",
-    0x25: "Trusses",
-    0x26: "Robots",
-    0x27: "Animation",
-    0x28: "Floats",
-    0x29: "Breakaways",
-    0x2A: "Barges",
-
-    0x30: "Video (General Category)",
-    0x31: "Video Tape Machines",
-    0x32: "Video Cassette Machines",
-    0x33: "Video Disc Players",
-    0x34: "Video Switchers",
-    0x35: "Video Effects",
-    0x36: "Video Character Generators",
-    0x37: "Video Still Stores",
-    0x38: "Video Monitors",
-
-    0x40: "Projection (General Category)",
-    0x41: "Film Projectors",
-    0x42: "Slide Projectors",
-    0x43: "Video Projectors",
-    0x44: "Dissolvers",
-    0x45: "Shutter Controls",
-
-    0x50: "Process Control (General Category)",
-    0x51: "Hydraulic Oil",
-    0x52: "H2O",
-    0x53: "CO2",
-    0x54: "Compressed Air",
-    0x55: "Natural Gas",
-    0x56: "Fog",
-    0x57: "Smoke",
-    0x58: "Cracked Haze",
-
-    0x60: "Pyro (General Category)",
-    0x61: "Fireworks",
-    0x62: "Explosions",
-    0x63: "Flame",
-    0x64: "Smoke pots",
-
-    0x7F: "All-types",
+    # See the MSC specification.
 }
 REAL_TIME_NOTATION_INFORMATION_SUB_ID_2 = {  # 0x03
     0x01: "Bar Number",
@@ -1402,10 +1337,262 @@ SMF_DEFAULT_ENCODING = 'ASCII'
 # v1.1.1
 #
 # Reference: RP-002/RP-014
+# Part of MIDI 1.0 additional specifications.
 ###
 
 # TODO!
 #   Parts already integrated above in REAL_TIME_SHOW_CONTROL_SUB_ID_2.
+
+# Page 2:
+MSC_COMMAND_FORMAT = REAL_TIME_SHOW_CONTROL_SUB_ID_2
+MSC_MAXIMUM_MESSAGE_SIZE_BYTES = 128
+
+# Pages 2-3:
+MSC_DEVICE_IDS = {}
+for _id in range(0x00, 0x70):
+    MSC_DEVICE_IDS[_id] = f"Individual ID #{_id}"
+for _id in range(0x70, 0x7F):
+    MSC_DEVICE_IDS[_id] = f"Group ID # {_id - 0x69} (optional)"
+del _id
+MSC_DEVICE_IDS[0x7F] = "All-call"  # ID for system wide broadcasts
+
+# Page 4:
+MSC_DATA_DELIMITER = 0x00
+
+# Page 5:
+MSC_DATA_CUE_ALLOWED_CHARACTERS = list(range(0x30, 0x40))  # Numerical ASCII
+MSC_DATA_CUE_ALLOWED_CHARACTERS.append(0x2E)  # ASCII dot
+
+# Page 6-7:
+# TODO? Time Code
+
+# Page 8:
+MSC_COMMAND_FORMAT_CATEGORIES = ("General", "Specific", "All-types")
+
+# Page 9:
+MSC_COMMAND_FORMAT = {
+    0x00: "reserved for extensions",
+
+    0x01: "Lighting",  # (General Category)
+    0x02: "Moving Lights",
+    0x03: "Color Changers",
+    0x04: "Strobes",
+    0x05: "Lasers",
+    0x06: "Chasers",
+
+    0x10: "Sound",  # (General Category)
+    0x11: "Music",
+    0x12: "CD Players",
+    0x13: "EPROM Playback",
+    0x14: "Audio Tape Machines",
+    0x15: "Intercoms",
+    0x16: "Amplifiers",
+    0x17: "Audio Effects Devices",
+    0x18: "Equalizers",
+
+    0x20: "Machinery",  # (General Cat.)
+    0x21: "Rigging",
+    0x22: "Flys",
+    0x23: "Lifts",
+    0x24: "Turntables",
+    0x25: "Trusses",
+    0x26: "Robots",
+    0x27: "Animation",
+    0x28: "Floats",
+    0x29: "Breakaways",
+    0x2A: "Barges",
+
+    0x30: "Video",  # (General Category)
+    0x31: "Video Tape Machines",
+    0x32: "Video Cassette Machines",
+    0x33: "Video Disc Players",
+    0x34: "Video Switchers",
+    0x35: "Video Effects",
+    0x36: "Video Character Generators",
+    0x37: "Video Still Stores",
+    0x38: "Video Monitors",
+
+    0x40: "Projection",  # (General)
+    0x41: "Film Projectors",
+    0x42: "Slide Projectors",
+    0x43: "Video Projectors",
+    0x44: "Dissolvers",
+    0x45: "Shutter Controls",
+
+    0x50: "Process Control",  # (Gen.)
+    0x51: "Hydraulic Oil",
+    0x52: "H₂O",
+    0x53: "CO₂",
+    0x54: "Compressed Air",
+    0x55: "Natural Gas",
+    0x56: "Fog",
+    0x57: "Smoke",
+    0x58: "Cracked Haze",
+
+    0x60: "Pyro",  # General Category
+    0x61: "Fireworks",
+    0x62: "Explosions",
+    0x63: "Flame",
+    0x64: "Smoke pots",
+
+    0x7F: "All-types",
+}
+
+# Page 10:
+MSC_RECOMMENDED_MINIMUM_SETS = {
+    1: "Simple Controlled Device; no time code; basic data only",
+    2: "No time code; full data capability",
+    3: "Full time code; full data capability",
+    4: "Two phase commit methodology",
+}
+
+MSC_GENERAL_COMMANDS = {
+    0x00: "reserved for extensions",
+    0x01: "GO",
+    0x02: "STOP",
+    0x03: "RESUME",
+    0x04: "TIMED_GO",
+    0x05: "LOAD",
+    0x06: "SET",
+    0x07: "FIRE",
+    0x08: "ALL_OFF",
+    0x09: "RESTORE",
+    0x0A: "RESET",
+    0x0B: "GO_OFF",
+}
+
+MSC_GENERAL_COMMANDS_DATA_BYTES = {
+    0x00: None,  # Unspecified
+    0x01: _VLQ,
+    0x02: _VLQ,
+    0x03: _VLQ,
+    0x04: _VLQ,
+    0x05: _VLQ,
+    0x06: (4, 9),
+    0x07: 1,
+    0x08: 0,
+    0x09: 0,
+    0x0A: 0,
+    0x0B: _VLQ,
+}
+
+MSC_GENERAL_COMMANDS_RECOMMENDED_MINIMUM_SETS = {
+    0x00: None,  # Unspecified
+    0x01: (1, 2, 3),
+    0x02: (1, 2, 3),
+    0x03: (1, 2, 3),
+    0x04: (2, 3),
+    0x05: (2, 3),
+    0x06: (2, 3),
+    0x07: (2, 3),
+    0x08: (2, 3),
+    0x09: (2, 3),
+    0x0A: (2, 3),
+    0x0B: (2, 3),
+}
+
+# Page 11:
+MSC_SOUND_COMMANDS = {
+    0x10: "GO/JAM_CLOCK",
+    0x11: "STANDBY_+",
+    0x12: "STANDBY_-",
+    0x13: "SEQUENCE_+",
+    0x14: "SEQUENCE_-",
+    0X15: "START_CLOCK",
+    0x16: "STOP_CLOCK",
+    0x17: "ZERO_CLOCK",
+    0x18: "SET_CLOCK",
+    0x19: "MTC_CHASE_ON",
+    0x1A: "MTC_CHASE_OFF",
+    0x1B: "OPEN_CUE_LIST",
+    0x1C: "CLOSE_CUE_LIST",
+    0x1D: "OPEN_CUE_PATH",
+    0x1E: "CLOSE_CUE_PATH",
+}
+
+MSC_SOUND_COMMANDS_DATA_BYTES = {
+    0x10: _VLQ,
+    0x11: _VLQ,
+    0x12: _VLQ,
+    0x13: _VLQ,
+    0x14: _VLQ,
+    0X15: _VLQ,
+    0x16: _VLQ,
+    0x17: _VLQ,
+    0x18: _VLQ,
+    0x19: _VLQ,
+    0x1A: _VLQ,
+    0x1B: _VLQ,
+    0x1C: _VLQ,
+    0x1D: _VLQ,
+    0x1E: _VLQ,
+}
+
+MSC_SOUND_COMMANDS_RECOMMENDED_MINIMUM_SETS = {
+    0x10: 3,
+    0x11: (2, 3),
+    0x12: (2, 3),
+    0x13: (2, 3),
+    0x14: (2, 3),
+    0X15: 3,
+    0x16: 3,
+    0x17: 3,
+    0x18: 3,
+    0x19: 3,
+    0x1A: 3,
+    0x1B: (2, 3),
+    0x1C: (2, 3),
+    0x1D: (2, 3),
+    0x1E: (2, 3),
+}
+
+MSC_TWO_PHASE_COMMIT_COMMANDS = {
+    0x20: "STANDBY",
+    0x21: "STANDING_BY",
+    0x22: "GO_2PC",
+    0X23: "COMPLETE",
+    0x24: "CANCEL",
+    0x25: "CANCELLED",
+    0x26: "ABORT",
+}
+
+MSC_TWO_PHASE_COMMIT_COMMANDS_DATA_BYTES = {
+    0x20: _VLQ,
+    0x21: _VLQ,
+    0x22: _VLQ,
+    0X23: _VLQ,
+    0x24: _VLQ,
+    0x25: 6,
+    0x26: 6,
+}
+
+MSC_TWO_PHASE_COMMIT_RECOMMENDED_MINIMUM_SETS = {
+    0x20: 4,
+    0x21: 4,
+    0x22: 4,
+    0X23: 4,
+    0x24: 4,
+    0x25: 4,
+    0x26: 4,
+}
+
+# Page 12-24:
+# TODO: Detailed command data description
+
+# Page 27:
+# TODO: MSC 2PC timeout
+
+# Page 30:
+# TODO: MSC 2PC checksum
+
+# Pages 31-34:
+# TODO: MSC 2PC status codes
+
+# Page 35:
+# TODO: Cue data values?
+
+# Page 36-40:
+# TODO: Example 2PC data exchange?
 
 ###
 # GENERAL MIDI SYSTEM LEVEL 1 (GM/GM1)
@@ -1658,6 +1845,7 @@ GENERAL_MIDI_PERCUSSION_MAP = {  # Channel 10
 # MIDI TIME CODE (MTC)
 #
 # Reference: MMA0001/RP-004/RP-008
+# Integrated into v1.0 specification?
 ###
 
 # TODO!
@@ -1688,6 +1876,7 @@ GENERAL_MIDI_PERCUSSION_MAP = {  # Channel 10
 # RP-008
 #
 # See section: MIDI TIME CODE (MTC)
+# Integrated into v1.0 specification
 ###
 
 ###
