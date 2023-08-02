@@ -29,6 +29,9 @@ VERSIONS = {
 #            February 1996
 ###
 
+MIDI_SPECIFICATION_VERSION = "4.2.1"
+MIDI_VERSION = "1.0"
+
 # TODO: contribute to mido?
 
 # Page 3 (PDF 8):
@@ -1151,6 +1154,9 @@ ADDITIONAL_SPECIFICATIONS = {
 # Reference: RP-001
 ###
 
+SMF_SPECIFICATION_VERSION = "1.0"
+SMF_VERSION = "1.0"
+
 # Page 2 (PDF 4):
 SMF_MAC_FILE_TYPE = 'Midi'
 SMF_MAC_CLIPBOARD_DATA_TYPE = 'Midi'
@@ -1350,8 +1356,8 @@ SMF_DEFAULT_ENCODING = 'ASCII'
 # Part of MIDI 1.0 additional specifications.
 ###
 
-# TODO!
-#   Parts already integrated above in REAL_TIME_SHOW_CONTROL_SUB_ID_2.
+MSC_SPECIFICATION_VERSION = "1.1.1"
+MSC_VERSION = "1.1.1"
 
 # Page 2 (PDF 4):
 MSC_COMMAND_FORMAT = REAL_TIME_SHOW_CONTROL_SUB_ID_2
