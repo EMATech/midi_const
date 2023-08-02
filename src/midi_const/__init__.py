@@ -1616,6 +1616,7 @@ MSC_TWO_PHASE_COMMIT_RECOMMENDED_MINIMUM_SETS = {
 # Reference: MMA-00007/RP-003
 ###
 
+# Page 2 (PDF 4):
 GM1_MINIMUM_VOICES = 24
 GM1_MINIMUM_MELODY_VOICES = 16
 GM1_MINIMUM_PERCUSSION_VOICES = 8
@@ -1624,6 +1625,9 @@ GM1_PERCUSSION_CHANNEL = 10
 
 GM1_MINIMUM_INSTRUMENTS = 128  # See: GM Sound Set
 GM1_MINIMUM_PERCUSSION_SOUNDS = 47  # See: GM Percussion Map
+
+# Page 3 (PDF 5):
+GM1_MIDDLE_C = MIDDLE_C_NOTE  # 0x3C
 
 GM1_REQUIRED_CONTROLLER_CHANGES = (
     1,  # Modulation
@@ -1652,6 +1656,10 @@ GM1_DEFAULT_SETTINGS = {
     'controllers': 'normal'
 }
 
+# Page 4 (PDF 6):
+# See MIDI 1.0 Universal Non-Real Time System Exclusive messages
+
+# Page 5 (PDF 7)
 GENERAL_MIDI_SOUND_SET_GROUPINGS = {}
 for _group in (
         ((0, 8), "Piano"),
@@ -1807,6 +1815,7 @@ GENERAL_MIDI_SOUND_SET = (
     "Gunshot",
 )
 
+# Page 6 (PDF 8):
 GENERAL_MIDI_PERCUSSION_MAP = {  # Channel 10
     35: "Acoustic Bass Drum",
     36: "Bass Drum 1",
