@@ -1353,11 +1353,11 @@ SMF_DEFAULT_ENCODING = 'ASCII'
 # TODO!
 #   Parts already integrated above in REAL_TIME_SHOW_CONTROL_SUB_ID_2.
 
-# Page 2:
+# Page 2 (PDF 4):
 MSC_COMMAND_FORMAT = REAL_TIME_SHOW_CONTROL_SUB_ID_2
 MSC_MAXIMUM_MESSAGE_SIZE_BYTES = 128
 
-# Pages 2-3:
+# Pages 2-3 (PDF 4-5):
 MSC_DEVICE_IDS = {}
 for _id in range(0x00, 0x70):
     MSC_DEVICE_IDS[_id] = f"Individual ID #{_id}"
@@ -1366,20 +1366,20 @@ for _id in range(0x70, 0x7F):
 del _id
 MSC_DEVICE_IDS[0x7F] = "All-call"  # ID for system wide broadcasts
 
-# Page 4:
+# Page 4 (PDF 6):
 MSC_DATA_DELIMITER = 0x00
 
-# Page 5:
+# Page 5 (PDF 7):
 MSC_DATA_CUE_ALLOWED_CHARACTERS = list(range(0x30, 0x40))  # Numerical ASCII
 MSC_DATA_CUE_ALLOWED_CHARACTERS.append(0x2E)  # ASCII dot
 
-# Page 6-7:
+# Page 6-7 (PDF 8-9):
 # TODO? Time Code
 
-# Page 8:
+# Page 8 (PDF 10):
 MSC_COMMAND_FORMAT_CATEGORIES = ("General", "Specific", "All-types")
 
-# Page 9:
+# Page 9 (PDF 11):
 MSC_COMMAND_FORMAT = {
     0x00: "reserved for extensions",
 
@@ -1448,7 +1448,7 @@ MSC_COMMAND_FORMAT = {
     0x7F: "All-types",
 }
 
-# Page 10:
+# Page 10 (PDF 12):
 MSC_RECOMMENDED_MINIMUM_SETS = {
     1: "Simple Controlled Device; no time code; basic data only",
     2: "No time code; full data capability",
@@ -1501,7 +1501,7 @@ MSC_GENERAL_COMMANDS_RECOMMENDED_MINIMUM_SETS = {
     0x0B: (2, 3),
 }
 
-# Page 11:
+# Page 11 (PDF 13):
 MSC_SOUND_COMMANDS = {
     0x10: "GO/JAM_CLOCK",
     0x11: "STANDBY_+",
@@ -1586,22 +1586,22 @@ MSC_TWO_PHASE_COMMIT_RECOMMENDED_MINIMUM_SETS = {
     0x26: 4,
 }
 
-# Page 12-24:
+# Page 12-24 (PDF 14-26):
 # TODO: Detailed command data description
 
-# Page 27:
+# Page 27 (PDF 29):
 # TODO: MSC 2PC timeout
 
-# Page 30:
+# Page 30 (PDF 32):
 # TODO: MSC 2PC checksum
 
-# Pages 31-34:
+# Pages 31-34 (PDF 33-36):
 # TODO: MSC 2PC status codes
 
-# Page 35:
+# Page 35 (PDF 37):
 # TODO: Cue data values?
 
-# Page 36-40:
+# Page 36-40 (PDF 38-42):
 # TODO: Example 2PC data exchange?
 
 ###
