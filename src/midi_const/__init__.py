@@ -1861,10 +1861,162 @@ GENERAL_MIDI_PERCUSSION_MAP = {  # Channel 10
 # MIDI TIME CODE (MTC)
 #
 # Reference: MMA0001/RP-004/RP-008
-# Integrated into v1.0 specification?
+# Part of MIDI 1.0 additional specifications.
+#
+# External reference: SMPTE 12M (ANSI V98.12M-1981)
 ###
 
-# TODO!
+MTC_SPECIFICATION_VERSION = "4.2.1"
+MTC_VERSION = "1.0"
+
+# Page 1 (PDF 3):
+MTC_QUARTER_FRAME_DATA_BIT_MASKS = {
+    0b0111_0000: "Message Type",
+    0b0000_1111: "Binary Data",
+}
+
+MTC_QUARTER_FRAME_MESSAGE_TYPES = {
+    0: "Frame count LS nibble",
+    1: "Frame count MS nibble",
+    2: "Seconds count LS nibble",
+    3: "Seconds count MS nibble",
+    4: "Minutes count LS nibble",
+    5: "Minutes count MS nibble",
+    6: "Hours count LS nibble",
+    7: "Hours count MS nibble and SMPTE Type",
+}
+
+# Page 2 (PDF 4):
+MTC_FRAME_COUNT_BIT_MASKS = {  # xxx yyyyy
+    0b1110_0000: "Undefined and reserved for future use. Transmitter must set "
+                 "these bits to 0 and receiver should ignore!",
+    0b0001_1111: "Frame count (0-29)",
+}
+
+MTC_FRAME_COUNT_VALID_VALUES = range(0, 30)
+
+MTC_SECONDS_COUNT_BIT_MASKS = {  # xx yyyyyy
+    0b1100_0000: "Undefined and reserved for future use. Transmitter must set "
+                 "these bits to 0 and receiver should ignore!",
+    0b0011_1111: "Seconds count (0-59)",
+}
+
+MTC_SECONDS_COUNT_VALID_VALUES = range(0, 60)
+
+MTC_MINUTES_COUNT_BIT_MASKS = {  # xx yyyyyy
+    0b1100_0000: "Undefined and reserved for future use. Transmitter must set "
+                 "these bits to 0 and receiver should ignore!",
+    0b0011_1111: "Minutes count (0-59)",
+}
+
+MTC_MINUTES_COUNT_VALID_VALUES = range(0, 60)
+
+MTC_HOURS_COUNT_BIT_MASKS = {  # x yy zzzzz
+    0b1000_0000: "Undefined and reserved for future use. Transmitter must set "
+                 "these bits to 0 and receiver should ignore!",
+    0b0110_0000: "Time Code Type",
+    0b0001_1111: "Hours count (0-23)"
+}
+
+MTC_HOURS_COUNT_VALID_VALUES = range(0, 23)
+
+MTC_TIME_CODE_TYPES = {
+    0: "24 Frames / Second",
+    1: "25 Frames / Second",
+    2: "30 Frames / Second (Drop-Frame)",
+    3: "30 Frames / Second (Non-Drop)",
+}
+
+# Page 5 (PDF 7):
+MTC_FULL_MESSAGE_HOURS_TYPE_MASKS = {  # 0 yy zzzzz
+    0b1000_0000: 0,
+    0b0110_0000: "Type",
+    0b0001_1111: "Hours (0-23)",
+}
+
+# Page 6 (PDF 8):
+MTC_USER_BITS_EXPECTED_DATA_LENGTH = 9
+#   15
+# - 2  (Real Time Universal System Exclusive Header)
+# - 1  (Device ID)
+# - 1  (Sub-ID 1)
+# - 1  (Sub-ID 2)
+# - 1  (EOX)
+
+MTC_USER_BITS_DATA_FIELDS = {
+    0: "u1",
+    1: "u2",
+    2: "u3",
+    3: "u4",
+    4: "u5",
+    5: "u6",
+    6: "u7",
+    7: "u8",
+    8: "u9",
+}
+
+# SMPTE/EBU binary groups 1 through 8
+MTC_USER_BITS_U1_MASK = 0b0000_1111  # 0000aaaa
+MTC_USER_BITS_U2_MASK = 0b0000_1111  # 0000bbbb
+MTC_USER_BITS_U3_MASK = 0b0000_1111  # 0000cccc
+MTC_USER_BITS_U4_MASK = 0b0000_1111  # 0000dddd
+MTC_USER_BITS_U5_MASK = 0b0000_1111  # 0000eeee
+MTC_USER_BITS_U6_MASK = 0b0000_1111  # 0000ffff
+MTC_USER_BITS_U7_MASK = 0b0000_1111  # 0000gggg
+MTC_USER_BITS_U8_MASK = 0b0000_1111  # 0000hhhh
+MTC_USER_BITS_U9_MASK = 0b0000_0011  # 000000ji
+# j: SMPTE time code bit 59 (EBU bit 43)
+# i: SMPTE time code bit 43 (EBU bit 27)
+
+# TODO: SMPTE nibbles reassembly rules?
+
+# Page 7 (PDF 9):
+MTC_MIDI_CUEING_SET_UP_TYPES = NON_REAL_TIME_MIDI_TIME_CODE_SUB_ID_2
+
+MTC_MIDI_CUEING_HOURS_TYPE_MASKS = MTC_FULL_MESSAGE_HOURS_TYPE_MASKS
+
+MTC_MIDI_CUEING_DATA_FIELDS = {
+    0: "Hours and type",  # hr
+    1: "Minutes",  # mn
+    2: "Seconds",  # sc
+    3: "Frames",  # fr
+    4: "Fractional Frames",  # ff
+    5: "Event Number LSB",  # sl
+    6: "Event Number MSB",  # sm
+    # <add. info.>
+}
+
+MTC_MIDI_CUEING_TYPE_HAS_ADDITIONAL_INFO = {0x07, 0x08, 0x0C, 0x0E}
+
+MTC_MIDI_CUEING_FRACTIONAL_FRAMES_VALID_VALUES = range(0, 100)
+
+
+# Page 8 (PDF 10):
+MTC_MIDI_CUEING_SET_UP_SPECIAL_TYPES = {  # Replaces the event number
+    0x00: "Time Code Offset",
+    0x01: "Enable Event List",
+    0x02: "Disable Event List",
+    0x03: "Clear Event List",
+    0x04: "System Stop",
+    0x05: "Event List Request",
+}
+
+# Page 9 (PDF 11):
+# TODO: event number decoder/encoder? 14 bit value from 2 × 7-bits data fields.
+
+# TODO: additional information decoder/encoder?
+#       Set-Up Type 0x0E (Event Name in additional info.): nibblized ASCII
+#          ASCII newline: CR+LF
+#       Other: nibblized MIDI data stream
+
+# Page 10 (PDF 12):
+MTC_REAL_TIME_MIDI_CUEING_SET_UP_TYPES = REAL_TIME_MTC_CUEING_SUB_ID_2
+
+MTC_REAL_TIME_MIDI_CUEING_DATA_FIELDS = {
+    0: "Event Number LSB",  # sl
+    1: "Event Number MSB",  # sm
+    # <add. info.>
+}
 
 ###
 # NOTATION INFORMATION
