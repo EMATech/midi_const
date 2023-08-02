@@ -31,7 +31,15 @@ VERSIONS = {
 
 # TODO: contribute to mido?
 
-# Page 7
+# Page 3 (PDF 8):
+MIDI_BYTE_TYPE_MASK = 0b1000_0000
+
+MIDI_BYTE_TYPES = {
+    1: "Status Byte",
+    0: "Data Byte",
+}
+
+# Page 7 (PDF 12):
 MODE = {
     1: {
         'omni': True,
@@ -75,18 +83,20 @@ DEFAULT_BASIC_CHANNEL = 0
 
 DEFAULT_MODE = 1  # Omni On/Poly
 
-# Page 8
+# Page 8 (PDF 13):
 POWER_UP_DEFAULT = {
     "basic_channel": DEFAULT_BASIC_CHANNEL,
     "mode": DEFAULT_MODE,
 }
 
-# Page 10
+# Page 10 (PDF 15):
 MIDDLE_C_NOTE = 60
 DEFAULT_VELOCITY = 64
 NOTE_OFF_VELOCITY = 0
 
-# Page T-2
+# TODO: Message decoders?
+
+# Page T-2 (PDF 74):
 CHANNEL_VOICE_MESSAGES = {
     0x8: "Note Off",
     0x9: "Note On",
@@ -97,7 +107,7 @@ CHANNEL_VOICE_MESSAGES = {
     0xE: "Pitch Bend Change",
 }
 
-# Page T-3
+# Page T-3 (PDF 75):
 CONTROLLER_NUMBERS = {
     0: "Bank Select",
 
@@ -301,7 +311,7 @@ CONTROLLER_NUMBERS = {
     # END: Reserved for Channel Mode Messages.
 }
 
-# Page T-4
+# Page T-4 (PDF 76):
 REGISTERED_PARAMETER_NUMBERS = {
     # LSB only since MSB is always 0x00.
     # FIXME: RP-024 defines an LSB of 0x7F!
@@ -323,7 +333,7 @@ REGISTERED_PARAMETER_NUMBERS = {
     # Introduced by CA-026.
 }
 
-# Page T-5
+# Page T-5 (PDF 77):
 # Only valid for the device’s Basic Channel Number
 CHANNEL_MODE_MESSAGES = {
     120: "All Sound Off",  # 0
@@ -340,7 +350,7 @@ CHANNEL_MODE_MESSAGES = {
     127: "Poly Mode On (Mono Mode Off) (All Notes Off)",
 }
 
-# Page T-6
+# Page T-6 (PDF 78):
 SYSTEM_COMMON_MESSAGES = {
     0xF1: "MIDI Time Code Quarter Frame",
     0xF2: "Song Position Pointer",
@@ -351,7 +361,7 @@ SYSTEM_COMMON_MESSAGES = {
     0xF7: "EOX: \"End of System Exclusive\" flag",
 }
 
-# Page T-7
+# Page T-7 (PDF 79):
 SYSTEM_REAL_TIME_MESSAGES = {
     0xF8: "Timing Clock",
     0xF9: "Undefined",
@@ -363,7 +373,7 @@ SYSTEM_REAL_TIME_MESSAGES = {
     0xFF: "System Reset",
 }
 
-# Page T-8
+# Page T-8 (PDF 80):
 SYSTEM_EXCLUSIVE_MESSAGES = {
     0xF0: "Start of System Exclusive",
     0xF7: "End of System Exclusive",
@@ -385,7 +395,7 @@ STATUS_BYTES.update(SYSTEM_COMMON_MESSAGES)
 STATUS_BYTES.update(SYSTEM_REAL_TIME_MESSAGES)
 STATUS_BYTES.update(SYSTEM_EXCLUSIVE_MESSAGES)
 
-# Page T-9
+# Page T-9 (PDF 81):
 DEFINED_UNIVERSAL_SYSTEM_EXCLUSIVE_MESSAGES_NON_REAL_TIME_SUB_ID_1 = {  # 0x7E
     0x00: "Unused",
     0x01: "Sample Dump Header",
@@ -506,7 +516,7 @@ NON_REAL_TIME_SUB_ID_2_FROM_1 = {
     # Introduced by CA-018.
 }
 
-# Page T-10
+# Page T-10 (PDF 82):
 DEFINED_UNIVERSAL_SYSTEM_EXCLUSIVE_MESSAGES_REAL_TIME_SUB_ID_1 = {  # 0x7F
     0x00: "Unused",
     0x01: "MIDI Time Code",  # Has a SUB-ID #2.
@@ -751,7 +761,7 @@ REAL_TIME_SUB_ID_2_FROM_1 = {
     # Introduced by CA-030.
 }
 
-# Page T-11
+# Page T-11-13 (PDF 83-85):
 # Up to date sources:  TODO: update, write a scrapper?
 # - https://www.midi.org/specifications-old/item/manufacturer-id-numbers
 # - http://www.amei.or.jp/report/report6.html (JAPANESE)
@@ -1067,7 +1077,7 @@ SYSTEM_EXCLUSIVE_ID = {
 
     # Others Group (60-7C):
 
-    # Page T-8
+    # Page T-8 (PDF 80):
     # Special Group (7D-7F):
     0x7D: "Non Commercial",
     0x7E: "Non-Real Time",
@@ -1093,7 +1103,7 @@ for _syx_id in range(0x40, 0x5F + 1):
 
 del _syx_id
 
-# Page T-14
+# Page T-14 (PDF 86):
 ADDITIONAL_SPECIFICATIONS = {
     "MIDI Time Code",
     "MIDI Show Control 1.1",
