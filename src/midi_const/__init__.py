@@ -1151,17 +1151,17 @@ ADDITIONAL_SPECIFICATIONS = {
 # Reference: RP-001
 ###
 
-# Page 2 (PDF: 4)
+# Page 2 (PDF 4):
 SMF_MAC_FILE_TYPE = 'Midi'
 SMF_MAC_CLIPBOARD_DATA_TYPE = 'Midi'
 
-# Page 3 (PDF: 5)
+# Page 3 (PDF 5):
 SMF_CHUNK_TYPES = {
     'MThd': "Header",
     'MTrk': "Track",
 }
 
-# Page 4 (PDF: 6)
+# Page 4-5 (PDF 6-7):
 SMF_HEADER_FORMATS = {
     0: "Single multi-channel track",
     1: "One or more simultaneous tracks (or MIDI outputs) of a sequence",
@@ -1180,14 +1180,14 @@ SMF_HEADER_DIVISION_SMPTE = {
     -30: "30 FPS",  # non-drop
 }
 
-# Page 6-7 (PDF: 8-9)
+# Page 6-7 (PDF 8-9):
 SMF_TRACK_EVENT_TYPES = {
     0xF0: "Sysex",
     0xF7: "Escape (Sysex)",
     0xFF: "Meta",
 }
 
-# Page 8-11 (PDF: 10-13)
+# Page 8-11 (PDF 10-13):
 SMF_TRACK_EVENT_META_EVENT_TYPES = {
     0x00: "Sequence Number",
 
@@ -1331,7 +1331,7 @@ SMF_TRACK_EVENT_META_EVENT_PARAMETERS = {
     },
 }
 
-# Page 14 (PDF: 16)
+# Page 14 (PDF 16):
 _S_PER_MIN = 60
 _S2MS = _MS2US = 1_000
 _SMF_DEFAULT_TEMPO_BPM = 120
