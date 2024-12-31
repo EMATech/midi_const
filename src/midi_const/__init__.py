@@ -1666,7 +1666,7 @@ for _group in (
         ((8, 16), "Chromatic Percussion"),
         ((16, 24), "Organ"),
         ((24, 32), "Guitar"),
-        ((33, 40), "Bass"),
+        ((32, 40), "Bass"),
         ((40, 48), "Strings"),
         ((48, 56), "Ensemble"),
         ((56, 64), "Brass"),
