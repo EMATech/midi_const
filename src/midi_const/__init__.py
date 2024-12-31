@@ -4,13 +4,13 @@
 #
 # SPDX-License-Identifier: CC0-1.0 OR MIT OR Unlicense
 """
-Python MIDI constants.
+MIDI constants for Python.
 
 Derived from official MIDI specifications available at:
 - MIDI Association, ex MIDI Manufacturers Association (MMA) [US]:
   https://midi.org
 - Association of Musical Electronics Industry (AMEI) [JP]:
-  (https://www.amei.or.jp/)
+  https://www.amei.or.jp/
 - MIDI Standard Committee (MSC) [JP]:
   http://amei.or.jp/midistandardcommittee
 """

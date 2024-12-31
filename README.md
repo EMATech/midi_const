@@ -1,8 +1,8 @@
-midi_const
-==========
+MIDI constants for Python
+=========================
 
-Python MIDI constants
----------------------
+midi_const
+----------
 
 This very simple package provides useful constants derived from official 
 MIDI specifications available at:
