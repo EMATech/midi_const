@@ -15,7 +15,7 @@ Derived from official MIDI specifications available at:
   http://amei.or.jp/midistandardcommittee
 """
 
-__version__ = "0.1.0.post1"
+__version__ = "0.1.1"
 
 VERSIONS = {
     1: "1.0",
