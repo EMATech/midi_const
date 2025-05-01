@@ -161,17 +161,30 @@ CONTROLLER_NUMBERS = {
 
     # START: LSB for values 0-31:
     32: "Bank Select LSB",
-    33: "Modulation wheel or lever LSB",
+
+    33: "Modulation Depth LSB",
+    # Amended by RP-024.
+    # Was "Modulation" under RP-003.
+    # Formerly "Modulation wheel or lever".
+
     34: "Breath controller LSB",
     35: "Undefined LSB (3)",
     36: "Foot controller LSB",
     37: "Portamento time LSB",
     38: "Data entry LSB",
-    39: "Channel Volume LSB",  # formerly Main Volume
+    39: "Channel Volume LSB",
+    # Amended by RP-024.
+    # Was "Volume" under RP-003.
+    # Formerly "Main Volume".
+
     40: "Balance LSB",
     41: "Undefined LSB (9)",
     42: "Pan LSB",
-    43: "Expression Controller LSB",
+
+    43: "Expression LSB",
+    # Amended by RP-003.
+    # Formerly "Expression Controller".
+
     44: "Effect Control 1 LSB",
     45: "Effect Control 2 LSB",
     46: "Undefined LSB (14)",
