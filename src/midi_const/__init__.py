@@ -1958,12 +1958,13 @@ MTC_FULL_MESSAGE_HOURS_TYPE_MASKS = {  # 0 yy zzzzz
 
 # Page 6 (PDF 8):
 MTC_USER_BITS_EXPECTED_DATA_LENGTH = 9
-#   15
-# - 2  (Real Time Universal System Exclusive Header)
-# - 1  (Device ID)
-# - 1  (Sub-ID 1)
-# - 1  (Sub-ID 2)
-# - 1  (EOX)
+#    15 bytes
+#  - 2  (Real Time Universal System Exclusive Header)
+#  - 1  (Device ID)
+#  - 1  (Sub-ID 1)
+#  - 1  (Sub-ID 2)
+#  - 1  (EOX)
+#  = 9 bytes remaining
 
 MTC_USER_BITS_DATA_FIELDS = {
     0: "u1",
