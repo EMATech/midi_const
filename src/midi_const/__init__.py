@@ -1097,7 +1097,7 @@ SYSTEM_EXCLUSIVE_ID = {
     # Special Group (7D-7F):
     0x7D: "Non Commercial",
     0x7E: "Non-Real Time",
-    0x7F: "Realtime"
+    0x7F: "Real Time"
 }
 
 # ID Groups:
